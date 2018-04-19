@@ -1,12 +1,66 @@
 <template>
   <div id="editor">
-    这里是editor
+    <nav>
+      <ol>
+        <li v-for="i in [0, 1, 2, 3, 4, 5, 6]" 
+            v-bind:class="{active: currentTab === i}" 
+            v-on:click="currentTab = i">
+          <svg class="icon">
+            <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
+          </svg>
+        </li>
+      </ol>
+    </nav>
+    <ol class="panes">
+      <li v-bind:class="{active: currentTab === 0}">tab 1</li>
+      <li v-bind:class="{active: currentTab === 1}">tab 2</li>
+      <li v-bind:class="{active: currentTab === 2}">tab 3</li>
+      <li v-bind:class="{active: currentTab === 3}">tab 4</li>
+      <li v-bind:class="{active: currentTab === 4}">tab 5</li>
+      <li v-bind:class="{active: currentTab === 5}">tab 6</li>
+      <li v-bind:class="{active: currentTab === 6}">tab 7</li>
+    </ol>
   </div>
 </template>
 
-<style>
+<script>
+  export default {
+    data(){
+      return {
+        currentTab: 0,
+        icons: ['shenfenzheng', 'gongwenbao', 'book', 'xingquaihao--', 'jiangbei', 'project', 'cansaitubiaozhuanqu-']
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
   #editor {
-    border: 1px solid black;
     min-height: 100px;
+    display: flex;
+    > nav {
+      background: #000;
+      width: 80px;
+      >ol > li {
+        padding: 8px 0;
+        text-align: center;
+
+        box-shadow: 0 0 3px hsla(0, 0, 0, 0.5);
+        > .icon {
+          width: 35px;
+          height: 35px;
+          cursor: pointer;
+        } 
+        &.active {
+          background: white;
+        }
+      }
+    }
+    > .panes > li{
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
   }
 </style>
