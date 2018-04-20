@@ -4,8 +4,9 @@
       Vue-Resumer
     </div>
     <div class="actions">
-      <el-button type="primary" plain>注册</el-button>
-      <el-button plain>登陆</el-button>
+      <el-button>注册</el-button>
+      <el-button type="info">登陆</el-button>
+      <el-button type="warning" round v-on:click="preview">预览</el-button>
     </div>
   </div>
 </template>
@@ -24,3 +25,12 @@
     }
   }
 </style>
+<script>
+  export default {
+    methods:{
+      preview(){
+        this.$emit('preview')
+      }
+    }
+  }
+</script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>个人信息</h2>
+    <h2>基本信息</h2>
     <el-form>
      <el-form-item label="姓名">
        <el-input v-model="profile.name"></el-input>
@@ -10,7 +10,7 @@
      </el-form-item>
      <el-form-item label="生日">
        <el-input v-model="profile.birth"></el-input>
-      </el-form-item>
+     </el-form-item>
     </el-form>
   </div>
   

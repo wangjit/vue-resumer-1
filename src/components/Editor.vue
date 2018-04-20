@@ -14,25 +14,25 @@
     </nav>
     <ol class="panes">
       <li v-bind:class="{active: currentTab === 0}">
-        <ProfileEditor v-bind:profile="profile"/>
+        <ProfileEditor v-bind:profile="resume.profile"/>
       </li>
       <li v-bind:class="{active: currentTab === 1}">
-        <workExperienceEditor v-bind:workExperience="workExperience"/>
+        <itemsEditor v-bind:items="resume.workExperience" v-bind:labels="{company: '公司', content: '工作内容'}" v-bind:title="'工作经历'"/>
       </li>
       <li v-bind:class="{active: currentTab === 2}">
-        <h2>学习经历</h2>
+        <itemsEditor v-bind:items="resume.studyExperience" v-bind:labels="{school: '学校', duration: '时间', degree: '学位'}" v-bind:title="'学习经历'"/>
       </li>
       <li v-bind:class="{active: currentTab === 3}">
-        <h2>兴趣爱好</h2>
+        <itemsEditor v-bind:items="resume.likes" v-bind:labels="{likes: '我喜欢', detail: '关于我的兴趣'}" v-bind:title="'兴趣爱好'"/>
       </li>
       <li v-bind:class="{active: currentTab === 4}">
-        <h2>获得奖项</h2>
+        <itemsEditor v-bind:items="resume.awards" v-bind:labels="{awards: '奖项名称', detail: '奖项描述'}" v-bind:title="'获得奖项'"/>
       </li>
       <li v-bind:class="{active: currentTab === 5}">
-        <h2>项目经历</h2>
+        <itemsEditor v-bind:items="resume.projects" v-bind:labels="{project: '项目名称', detail: '项目描述'}" v-bind:title="'项目经历'"/>
       </li>
       <li v-bind:class="{active: currentTab === 6}">
-        <h2>联系方式</h2>
+        <itemsEditor class="none" v-bind:items="resume.contact" v-bind:labels="{QQ: 'QQ', Wechat: '微信', Email: '邮箱', Phone: '手机'}" v-bind:title="'联系方式'"/>
       </li>
     </ol>
   </div>
@@ -40,13 +40,27 @@
 
 <script>
   import ProfileEditor from './ProfileEditor'
-  import workExperienceEditor from './workExperienceEditor'
+  import itemsEditor from './itemsEditor'
+  //import contactEditor from './contactEditor'
   export default {
-    components: { ProfileEditor, workExperienceEditor },
+    components: {
+      ProfileEditor, 
+      itemsEditor
+    },
+    props: ['resume'],
+
     data(){
       return {
         currentTab: 0,
-        icons: ['shenfenzheng', 'gongwenbao', 'book', 'xingquaihao--', 'jiangbei', 'project', 'cansaitubiaozhuanqu-'],
+        icons: [
+          'shenfenzheng', 
+          'gongwenbao', 
+          'book', 
+          'xingquaihao--', 
+          'jiangbei', 
+          'project', 
+          'cansaitubiaozhuanqu-'
+          ],
         profile: {
           name: '',
           city: '',
@@ -54,6 +68,31 @@
         },
         workExperience: [
           {company: '', content: ''}
+        ],
+        studyExperience: [
+          {
+            school: '', duration: '', degree: ''
+          }
+        ],
+        likes: [
+          {
+            likes: '', detail: ''
+          }
+        ],
+        awards: [
+          {
+            awards: '', detail: ''
+          }
+        ],
+        projects: [
+          {
+            project: '', detail: ''
+          }
+        ],
+        contact: [
+          {
+            QQ: '', Wechat: '', Email: '', Phone: ''
+          }
         ]
       }
     },
@@ -69,13 +108,13 @@
   #editor {
     min-height: 100px;
     display: flex;
+    overflow: hidden;
     > nav {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       background: #404347;
       width: 80px;
-      
       >ol > li {
         margin: 0 5px 15px 5px;
         padding: 7px 0;
@@ -112,13 +151,24 @@
           cursor: pointer;
         }
       }
-      > li{
+      > li {
         display: none;
         padding: 25px;
         overflow: auto;
         height: 100%;
         &.active {
           display: block;
+        }
+        .none {
+          i {
+            display: none;
+          }
+          button {
+            display: none;
+          }
+          hr {
+            display: none;
+          }
         }
       }
     }
