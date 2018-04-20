@@ -4,32 +4,82 @@
       <ol>
         <li v-for="i in [0, 1, 2, 3, 4, 5, 6]" 
             v-bind:class="{active: currentTab === i}" 
-            v-on:click="currentTab = i">
+            v-on:click="currentTab = i"
+        >
           <svg class="icon">
-            <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
+            <use v-bind:xlink:href="`#icon-${icons[i]}`" fill: white></use>
           </svg>
         </li>
       </ol>
     </nav>
     <ol class="panes">
-      <li v-bind:class="{active: currentTab === 0}">tab 1</li>
-      <li v-bind:class="{active: currentTab === 1}">tab 2</li>
-      <li v-bind:class="{active: currentTab === 2}">tab 3</li>
-      <li v-bind:class="{active: currentTab === 3}">tab 4</li>
-      <li v-bind:class="{active: currentTab === 4}">tab 5</li>
-      <li v-bind:class="{active: currentTab === 5}">tab 6</li>
-      <li v-bind:class="{active: currentTab === 6}">tab 7</li>
+      <li v-bind:class="{active: currentTab === 0}">
+        <ProfileEditor v-bind:profile="profile"/>
+      </li>
+      <li v-bind:class="{active: currentTab === 1}">
+        <h2>工作经历</h2>
+        <el-form>
+          <div class="i-ct" v-for="(work, index) in workExperience">
+            <el-form-item label="公司">
+              <el-input v-model="work.company"></el-input>
+            </el-form-item>
+            <el-form-item label="工作内容">
+              <el-input v-model="work.content"></el-input>
+            </el-form-item>
+            <i class="el-icon-remove"  v-on:click="removeWorkExperience(index)"></i>
+            <hr style="margin-bottom: 10px; ">
+          </div>
+          <el-button v-on:click="addWorkExperience">添加一项</el-button>
+        </el-form>
+      </li>
+      <li v-bind:class="{active: currentTab === 2}">
+        <h2>学习经历</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 3}">
+        <h2>兴趣爱好</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 4}">
+        <h2>获得奖项</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 5}">
+        <h2>项目经历</h2>
+      </li>
+      <li v-bind:class="{active: currentTab === 6}">
+        <h2>联系方式</h2>
+      </li>
     </ol>
   </div>
 </template>
 
 <script>
+  import ProfileEditor from './ProfileEditor'
   export default {
+    components:{ ProfileEditor },
     data(){
       return {
         currentTab: 0,
-        icons: ['shenfenzheng', 'gongwenbao', 'book', 'xingquaihao--', 'jiangbei', 'project', 'cansaitubiaozhuanqu-']
+        icons: ['shenfenzheng', 'gongwenbao', 'book', 'xingquaihao--', 'jiangbei', 'project', 'cansaitubiaozhuanqu-'],
+        profile: {
+          name: '',
+          city: '',
+          birth: ''
+        },
+        workExperience: [
+          {company: '', content: ''}
+        ]
       }
+    },
+    methods:{
+      addWorkExperience(){
+        this.workExperience.push({
+          company: '',content: ''
+        })
+      },
+      removeWorkExperience(index){
+        this.workExperience.splice(index, 1)
+      }
+    },
+    created(){
     }
   }
 </script>
@@ -39,27 +89,56 @@
     min-height: 100px;
     display: flex;
     > nav {
-      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      background: #404347;
       width: 80px;
+      
       >ol > li {
-        padding: 8px 0;
+        margin: 0 5px 15px 5px;
+        padding: 7px 0;
         text-align: center;
-
-        box-shadow: 0 0 3px hsla(0, 0, 0, 0.5);
+        border-radius: 4px;
+        background: #404347;
+        box-shadow: 0 0 10px hsla(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: all 0.5s;
         > .icon {
           width: 35px;
           height: 35px;
-          cursor: pointer;
         } 
         &.active {
+          padding: 13px 0;
           background: white;
+          margin: 0 0 15px 0;
         }
       }
+      >ol > li:nth-child(7) {
+        margin-bottom: 0px;
+      }
     }
-    > .panes > li{
-      display: none;
-      &.active {
-        display: block;
+    > .panes {
+      flex: 1;
+      .i-ct {
+        position: relative;
+        .el-icon-remove {
+          font-size: 25px;
+          color: #42444a;
+          position: absolute;
+          right: 0;
+          top: 0;
+          cursor: pointer;
+        }
+      }
+      > li{
+        display: none;
+        padding: 25px;
+        overflow: auto;
+        height: 100%;
+        &.active {
+          display: block;
+        }
       }
     }
   }

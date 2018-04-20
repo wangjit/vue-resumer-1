@@ -1,7 +1,7 @@
 <template>
   <div id="topbar">
     <div class="logo">
-      VueResumer
+      Vue-Resumer
     </div>
     <div class="actions">
       <el-button type="primary" plain>注册</el-button>
@@ -16,6 +16,11 @@
     justify-content: space-between;
     align-items: 20px;
     padding: 16px;
-    font-size: 20px;
+    color: #fed136;
+    background-color: #42444a;
+    font-size: 2.5em;
+    .logo {
+      font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
+    }
   }
 </style>
