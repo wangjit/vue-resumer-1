@@ -6,10 +6,10 @@
       <el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">
         <el-input v-model="item[key]"></el-input>
       </el-form-item>
-      <i class="el-icon-remove" v-on:click="removeItem(index)"></i>
+      <button type="button" class="btn btn-secondary btn-sm" v-if="items.length > 1" v-on:click="removeItem(index)">删除第{{index + 1}}项</button>
       <hr style="margin-bottom: 10px; ">
     </div>
-    <el-button v-on:click="addItem">添加一项</el-button>
+    <button type="button" class="btn btn-primary btn-sm" v-on:click="addItem">添加一项</button>
   </el-form>
 </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       this.items.push(empty)
     },
     removeItem(index) {
-      this.items.splice(index, 1)
+        this.items.splice(index, 1)
     }
   }
 }

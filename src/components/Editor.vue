@@ -142,13 +142,10 @@
       flex: 1;
       .i-ct {
         position: relative;
-        .el-icon-remove {
-          font-size: 25px;
-          color: #42444a;
+        .btn-secondary {
           position: absolute;
           right: 0;
           top: 0;
-          cursor: pointer;
         }
       }
       > li {
