@@ -2,9 +2,19 @@
 
 > A Vue.js project
 
+**体验地址**
+
+[click me!](https://wangjit.github.io/vue-resumer-1/dist/)
+
+
+
 ## Build Setup
 
-``` bash
+``` shell
+# download the project
+git clone https://github.com/wangjit/vue-resumer-1.git
+cd vue-resumer-1
+
 # install dependencies
 npm install
 
@@ -18,4 +28,3 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
